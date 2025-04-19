@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Звёзды и Ракеты</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .starfield {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: starAnimation 1.5s infinite linear, starTwinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes starAnimation {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      100% {
+        transform: translateX(-100vw) translateY(-100vh);
+      }
+    }
+
+    @keyframes starTwinkle {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+
+    /* Ракета с картинкой */
+    .rocket {
+      position: absolute;
+      width: 80px;  /* Увеличиваем ширину */
+      height: 140px; /* Увеличиваем высоту */
+      background-image: url('https://cdn-icons-png.flaticon.com/512/9930/9930578.png');
+      background-size: contain; /* Картинка сохраняет пропорции */
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: rocketFly 5s linear infinite;
+    }
+
+    @keyframes rocketFly {
+      0% {
+        transform: translateX(-100px) translateY(100vh);
+      }
+      100% {
+        transform: translateX(100vw) translateY(-100vh);
+      }
+    }
+
+    /* Контент */
+    .content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      top: 40%;
+      transform: translateY(-40%);
+    }
+
+    h1 {
+      font-size: 50px;
+      margin: 0;
+    }
+
+    p {
+      font-size: 24px;
+      margin-top: 15px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff5722;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e64a19;
+    }
+  </style>
+</head>
+<body>
+  <div class="starfield"></div>
+  <div class="content">
+    <h1>Летим на Марс!</h1>
+    <p>Приготовьтесь к великому путешествию в космос!</p>
+    <button onclick="joinMission()">Готов к полету!</button>
+  </div>
+
+  <script>
+    // Функция для создания звёзд
+    function createStars() {
+      const starfield = document.querySelector('.starfield');
+      for (let i = 0; i < 200; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.width = `${Math.random() * 3 + 1}px`; // Размеры звёзд
+        star.style.height = `${star.style.width}`; // Круглые звезды
+        star.style.animationDuration = `${Math.random() * 2 + 1}s`; // Разное время для движения
+        starfield.appendChild(star);
+      }
+    }
+
+    // Функция для создания ракеты
+    function createRocket() {
+      const rocket = document.createElement('div');
+      rocket.classList.add('rocket');
+      rocket.style.top = `${Math.random() * 100}vh`;
+      rocket.style.left = `${Math.random() * 100}vw`;
+      document.body.appendChild(rocket);
+    }
+
+    // Запускаем создание звёзд и ракет
+    createStars();
+    setInterval(createRocket, 3000); // Каждые 3 секунды добавляем новую ракету
+
+    // Функция для кнопки
+    function joinMission() {
+      alert("Ты готов к полету! 🚀 Увидимся на Марсе!");
+    }
+  </script>
+</body>
+</html>
